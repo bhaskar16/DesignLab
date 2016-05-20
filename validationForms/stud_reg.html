@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8"></meta>
+		<title>Student Registration Form</title>
+		<script>
+			function validateForm() {
+				var form = document.getElementById("frm");
+				var name = form.elements["name"].value;
+				var email_reg = /^((\"\w+([\.-]?\w+)*\")|(\w+([\.-]?\w+)*))@\w+([\.-]?\w+)*(\.\w{2,3})*$/;
+				var email = form.elements["email"].value;
+				var pass = form.elements["pass"].value;
+				var contact = form.elements["contact"].value;
+				var address = form.elements["address"].value;
+				if(!name.match(/^[a-zA-Z]+(\s?[a-zA-Z])*$/)) {
+					alert("Invalid Name");
+					form.elements["name"].focus();
+					return false;
+				} else if(!email_reg.test(email)) {
+					alert("Invalid Email");
+					form.elements["email"].focus();
+					return false;
+				} else if(pass == '') {
+					alert("Invalid Password");
+					form.elements["pass"].focus();
+					return false;
+				} else if(!contact.match(/^[9,8,7]([0-9]{9})$/)) {
+					alert("Invalid Contact Number");
+					form.elements["contact"].focus();
+					return false;
+				} else if(address == '') {
+					alert("Address cannot be empty");
+					form.elements["address"].focus();
+					return false;
+				} else { 
+					return true;
+				}
+			}
+		</script>
+		<style>
+			H1 {font-size:40px;text-align:center;}
+		</style>
+	</head>
+	<body>
+		<h1>Student Registration Form</h1><hr/>
+		<form id="frm" method="get" action="" onsubmit="return validateForm()">
+			<table>
+				<tr>
+					<td>Name: </td>
+					<td><input name="name" type="text" placeholder="Enter Name"></input></td>
+				</tr>
+				<tr>
+					<td>Email: </td>
+					<td><input name="email" type="email" placeholder="Enter Email"></input></td>
+				</tr>
+				<tr>
+					<td>Password: </td>
+					<td><input name="pass" type="password" placeholder="Enter Password"></input></td>
+				</tr>
+				<tr>
+					<td>Contact Number: </td>
+					<td><input name="contact" type="text" placeholder="Enter Contact Number"></input></td>
+				</tr>
+				<tr>
+					<td>Address: </td>
+					<td><textarea name="address" rows="5" placeholder="Enter Address"></textarea></td>
+				</tr>
+				<tr>
+					<td><input type="reset" value="Reset"></input></td>
+					<td><input type="submit" value="Submit"></input></td>
+				</td>
+			</table>
+		</form>
+	</body>
+</html>

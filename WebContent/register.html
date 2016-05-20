@@ -1,0 +1,188 @@
+ <!DOCTYPE html>
+<html lang="en">
+  <head>
+   <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title></title>
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+   <link href="css/animate.css" rel="stylesheet">
+   <link href="css/response.css" rel="stylesheet">
+
+<link href="css/table.css" rel="stylesheet" type="text/css"/>
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+
+<script src="js/jquery-1.11.2.js"></script>
+    <script src="js/bootstrap.js"></script>
+ <script src="js/npm.js"></script>
+
+ 
+  </head>
+
+  <body>
+
+ 
+ <div class="container" >
+      <center>
+          <h2>Registration</h2>
+     
+	  
+	  
+	 
+	  </center>
+	  <br>
+	  
+	  <center>
+	    <div class="row">
+		
+		
+					 <div class="col-lg-4 col-md-6">
+					 <pre> Some description </pre>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-comments fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><h2>Tutors</h2></div>
+										<br>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer" data-toggle="modal" data-target="#form1" onclick="setgc(1)">
+                                    <span class="pull-right">Register</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+					
+					 <div class="col-lg-4 col-md-6">
+					  <pre> Some description </pre>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-comments fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><h2>Students</h2>  </div>
+<br>										
+                                    </div>
+                                </div>
+                            </div>
+                          <a href="#">
+                                <div class="panel-footer" data-toggle="modal" data-target="#form" onclick="setgc(2)">
+                                    <span class="pull-right">Register</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+					
+					<div class="col-lg-4 col-md-6">
+					 <pre> Some description </pre>
+                        <div class="panel panel-primary" >
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-comments fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge"><h2>Agency</h2></div>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#">
+                                <div class="panel-footer" data-toggle="modal" data-target="#form" onclick="setgc(3)">
+                                    <span class="pull-right">Register</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+	
+	</div>
+	</center>
+	</div>
+	
+	
+	<!-- Modals -->
+	<div id="form1" class="modal" tabindex="-1" role="dialog" aria-hidden="true" >
+  <div class="modal-dialog" >
+  <div class="modal-content">
+      <div id="head" class="modal-header">
+		<strong>Registration</strong>
+
+      </div>
+    <div class="modal-body">
+	<form id="TutorForm" method="POST" target="_blank" action="">
+	
+	<input class="form-control" type="text" name  = "Name"  placeholder="Name" required/>
+	<br>
+	<input class="form-control" type="date" name  = "DOB"  placeholder="Date of birth" required/>
+	<br>
+	<div class="form-group row">
+    <label class="col-sm-2">Gender</label>
+    <div class="col-sm-10">
+      <div class="radio">
+        <label>
+          <input type="radio" name="gridRadios" id="gridRadios1" value="option1" checked>
+          Male
+        </label>
+      </div>
+      <div class="radio">
+        <label>
+          <input type="radio" name="gridRadios" id="gridRadios2" value="option2">
+          Female
+        </label>
+      </div>
+     
+    </div>
+  </div>
+	<br>
+	<input class="form-control " type="phone" name = "Contact" placeholder="Contact Number" required/>
+	<br>
+    <!-- <input class="form-control" type="text" name=""  placeholder="" required/> -->
+<datalist id="occasion">
+  <option value="A">
+  <option value="B">
+  <option value="C">
+</datalist>
+<br>
+  <textarea class="form-control input-lg" rows="2" placeholder="Physical Address" required></textarea>
+  <br>
+  <strong><p> Select Discipline</p></strong>
+  <select name="discipline" multiple>
+ 
+  <option value="volvo">Academics</option>
+  <option value="saab">Technical or Vocational</option>
+  <option value="opel">Art</option>
+  <option value="audi">Singing</option>
+  <option value="audi">Instrument</option>
+</select>
+
+
+  </form>
+  </div>
+  
+   <div class="modal-footer">
+   
+   <input type="submit" value="Register" class="btn btn-primary" onclick="" ></input>
+ 
+   </input>
+   </div>
+  </div>
+</div></div>
+	</body>
+	</html>

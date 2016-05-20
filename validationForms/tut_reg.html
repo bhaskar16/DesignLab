@@ -1,0 +1,395 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8"></meta>
+		<title>Tutor Registration Form</title>
+		<script>
+			function validateForm() {
+				var form = document.getElementById("frm");
+				var name = form.elements["name"].value;
+				var dob = form.elements["db"].value;
+				var today = new Date(), dobObj = new Date(dob);
+				var email_reg = /^((\"\w+([\.-]?\w+)*\")|(\w+([\.-]?\w+)*))@\w+([\.-]?\w+)*(\.\w{2,3})*$/;
+				var email = form.elements["email"].value;
+				var pass = form.elements["pass"].value;
+				var contact = form.elements["contact"].value;
+				var address = form.elements["address"].value;
+				var disc = form.elements["disc"].value;
+				var discipline = form.elements["discipline"].value;
+				var subdiscipline = form.elements["subdiscipline"].value;
+				var experience = form.elements["exp"].value;
+				var remuneration = form.elements["remuneration"].value;
+				var ds = form.elements["dslot"].value;
+				var ts = form.elements["tslot"].value;
+				var daybox = form.elements["daybox"];
+				var loc = form.elements["loc"].value;
+				var locbox = form.elements["locbox"].value;
+				var bsize = form.elements["bs"].value;
+				var description = form.elements["desc"].value;
+				if(!name.match(/^[a-zA-Z]+(\s?[a-zA-Z])*$/)) {
+					alert("Invalid Name");
+					form.elements["name"].focus();
+					return false;
+				} else if(dob == '' || dobObj > today) {
+					alert("Invalid Date of Birth");
+					form.elements["db"].focus();
+					return false;
+				} else if(!email_reg.test(email)) {
+					alert("Invalid Email");
+					form.elements["email"].focus();
+					return false;
+				} else if(pass == '') {
+					alert("Invalid Password");
+					form.elements["pass"].focus();
+					return false;
+				} else if(!contact.match(/^[9,8,7]([0-9]{9})$/)) {
+					alert("Invalid Contact Number");
+					form.elements["contact"].focus();
+					return false;
+				} else if(address == '') {
+					alert("Address cannot be empty");
+					form.elements["address"].focus();
+					return false;
+				} else if(disc == "Others" && discipline == '') {
+					alert("Discipline cannot be empty");
+					form.elements["discipline"].focus();
+					return false;
+				} else if(disc != "Others" && subdiscipline == '') {
+					alert("Sub-Discipline cannot be empty");
+					form.elements["subdiscipline"].focus();
+					return false;
+				} else if(experience == '' || experience < 0 || experience > 40) {
+					alert("Invalid Experience");
+					form.elements["exp"].focus();
+					return false;
+				} else if(remuneration == '' || remuneration < 0 || remuneration > 10000) {
+					alert("Invalid Remuneration");
+					form.elements["remuneration"].focus();
+					return false;
+				} else if (loc == "My Location" && locbox == '') {
+					alert("Location cannot be Empty");
+					form.elements["locbox"].focus();
+					return false;
+				} else if(bsize != 'Single' && bsize != 'Upto 5' && bsize != 'Upto 10' && bsize != 'Any') {
+					alert("Invalid Batch Size");
+					form.elements["bs"].focus();
+					return false;
+				} else if(description == '') {
+					alert("Description cannot be empty");
+					form.elements["desc"].focus();
+					return false;
+				} else { 
+					if(disc != "Others") {
+						form.elements["discipline"].value = disc;
+					} if(ds == "spec") {
+						var i;var finalDS = "";
+						for(i = 0;i < daybox.length;i++) {
+							if(daybox[i].selected == true) {
+								finalDS += daybox[i].value;
+							} else {
+								finalDS += "0";
+							} if(finalDS == "0000000") {
+								alert("No Day Slots specified");
+								form.elements["daybox"].focus();
+								return false;
+							}
+						} form.elements["DS"].value = finalDS;
+					} else {
+						form.elements["location"].value = "1111111";
+					} if(ts == "spec"){
+						var time_slot = getSpecTS();
+						if(time_slot == "") {
+							alert("Invalid Time Slots");
+							form.elements["tsr11"].focus();
+							return false;
+						} else {form.elements["TS"].value = time_slot;}
+					} else {
+						form.elements["TS"].value = "00:00-23:30";
+					} if(loc == "My Location") {
+						form.elements["location"].value = locbox;
+					} else {
+						form.elements["location"].value = "Any Location";
+					} return true;
+				}
+			} function dsCheck() {
+				var form = document.getElementById("frm");
+				var ds = form.elements["dslot"].value;
+				if(ds == 'any') {
+					document.getElementById("dayrow").style = "display:none;";
+				} else {
+					document.getElementById("dayrow").style = "display:;";
+				}
+			} function tsCheck() {
+				var form = document.getElementById("frm");
+				var ts = form.elements["tslot"].value;
+				var finalTS = form.elements["TS"];
+				if(ts == 'any') {
+					document.getElementById("timerow").style = "display:none;";
+					finalTS.value = "00:00-23:30";
+				} else {
+					finalTS.value = "";var selects = ["tsr11","tsr12","tsr21","tsr22",
+					"tsr31","tsr32","tsr41","tsr42","tsr51","tsr52"];
+					for(var i=0;i<selects.length;i++) timeLoad(selects[i]);
+					document.getElementById("timerow").style = "display:;";
+				}
+			} function getSpecTS() {
+				var form = document.getElementById("frm");var finalTS = "";
+				var selects = ["tsr11","tsr12","tsr21","tsr22",
+					"tsr31","tsr32","tsr41","tsr42","tsr51","tsr52"];
+				for(var i=0;i<10;i+=2) {
+					var t1 = (form.elements[selects[i]].value).toString();
+					var t2 = (form.elements[selects[i+1]].value).toString();
+					var t1val = parseInt(t1.substring(0,2) + t1.substring(3,5));
+					var t2val = parseInt(t2.substring(0,2) + t2.substring(3,5));
+					if(t1val < t2val) {
+						if(finalTS == "") finalTS = t1 + "-" + t2;
+						else finalTS += "," + t1 + "-" + t2;
+					} else if(t1val > t2val) {
+						console.log("Came Here")
+						finalTS = "";break;
+					} else {}
+				} return finalTS;
+			} function timeLoad(sel) {
+				var ip = document.getElementById("frm").elements[sel];
+				if(ip.options.length == 0) {
+					var values = ["00:00","00:30","01:00","01:30","02:00","02:30","03:00","03:30",
+						"04:00","04:30","05:00","05:30","06:00","06:30","07:00","07:30","08:00",
+						"08:30","09:00","09:30","10:00","10:30","11:00","11:30","12:00","12:30",
+						"13:00","13:30","14:00","14:30","15:00","15:30","16:00","16:30","17:00",
+						"17:30","18:00","18:30","19:00","19:30","20:00","20:30","21:00","21:30",
+						"22:00","22:30","23:00","23:30"];
+					var keys = ["00:00 AM","00:30 AM","01:00 AM","01:30 AM","02:00 AM","02:30 AM",
+					"03:00 AM","03:30 AM","04:00 AM","04:30 AM","05:00 AM","05:30 AM","06:00 AM",
+					"06:30 AM","07:00 AM","07:30 AM","08:00 AM","08:30 AM","09:00 AM","09:30 AM",
+					"10:00 AM","10:30 AM","11:00 AM","11:30 AM","12:00 PM","12:30 PM","01:00 PM",
+					"01:30 PM","02:00 PM","02:30 PM","03:00 PM","03:30 PM","04:00 PM","04:30 PM",
+					"05:00 PM","05:30 PM","06:00 PM","06:30 PM","07:00 PM","07:30 PM","08:00 PM",
+					"08:30 PM","09:00 PM","09:30 PM","10:00 PM","10:30 PM","11:00 PM","11:30 PM"];
+					for(var i=0;i<48;i++) {
+						ip.options[i] = new Option(keys[i], values[i]);
+					}
+				}
+			} function locCheck() {
+				var form = document.getElementById("frm");
+				var ds = form.elements["loc"].value;
+				if(ds == 'My Location') {
+					document.getElementById("locrow").style = "display:;";
+				} else {
+					document.getElementById("locrow").style = "display:none;";
+				}
+			} function rePopSubDisc() {
+				var form = document.getElementById("frm");
+				var disc = form.elements["disc"].value;
+				var subdisc = form.elements["subdiscipline"];
+				var discrow = document.getElementById("discrow");
+				var subdiscrow = document.getElementById("subdiscrow");
+				if(disc == "Academics") {
+					subdisc.options.length = 0;discrow.style = "display:none;";subdiscrow.style = "display:;";
+					subdisc.options[subdisc.options.length] = new Option('English', 'English');
+					subdisc.options[subdisc.options.length] = new Option('Bengali', 'Bengali');
+					subdisc.options[subdisc.options.length] = new Option('Hindi', 'Hindi');
+					subdisc.options[subdisc.options.length] = new Option('Computer', 'Computer');
+					subdisc.options[subdisc.options.length] = new Option('Physics', 'Physics');
+					subdisc.options[subdisc.options.length] = new Option('Chemistry', 'Chemistry');
+					subdisc.options[subdisc.options.length] = new Option('Mathematics', 'Mathematics');
+					subdisc.options[subdisc.options.length] = new Option('Biology', 'Biology');
+				} else if(disc == "Technical or Vocational") {
+					subdisc.options.length = 0;discrow.style = "display:none;";subdiscrow.style = "display:;";
+					subdisc.options[subdisc.options.length] = new Option('Technical', 'Technical');
+					subdisc.options[subdisc.options.length] = new Option('Vocational', 'Vocational');
+				} else if(disc == "Art") {
+					subdisc.options.length = 0;discrow.style = "display:none;";subdiscrow.style = "display:;";
+					subdisc.options[subdisc.options.length] = new Option('Drawing', 'Drawing');
+					subdisc.options[subdisc.options.length] = new Option('Oil Painting', 'Oil Painting');
+					subdisc.options[subdisc.options.length] = new Option('Origami', 'Origami');
+					subdisc.options[subdisc.options.length] = new Option('Craft', 'Craft');
+				} else if(disc == "Singing") {
+					subdisc.options.length = 0;discrow.style = "display:none;";subdiscrow.style = "display:;";
+					subdisc.options[subdisc.options.length] = new Option('Eastern Classical', 'Eastern Classical');
+					subdisc.options[subdisc.options.length] = new Option('Western', 'Western');
+				} else if(disc == "Dance") {
+					subdisc.options.length = 0;discrow.style = "display:none;";subdiscrow.style = "display:;";
+					subdisc.options[subdisc.options.length] = new Option('Classical', 'Classical');
+					subdisc.options[subdisc.options.length] = new Option('Western', 'Western');
+				} else if(disc == "Instruments") {
+					subdisc.options.length = 0;discrow.style = "display:none;";subdiscrow.style = "display:;";
+					subdisc.options[subdisc.options.length] = new Option('Piano', 'Piano');
+					subdisc.options[subdisc.options.length] = new Option('Guitar', 'Guitar');
+					subdisc.options[subdisc.options.length] = new Option('Percussion', 'Percussion');
+				} else if(disc == "Sports") {
+					subdisc.options.length = 0;discrow.style = "display:none;";subdiscrow.style = "display:;";
+					subdisc.options[subdisc.options.length] = new Option('Football', 'Football');
+					subdisc.options[subdisc.options.length] = new Option('Cricket', 'Cricket');
+					subdisc.options[subdisc.options.length] = new Option('Hockey', 'Hockey');
+					subdisc.options[subdisc.options.length] = new Option('Basketball', 'Basketball');
+					subdisc.options[subdisc.options.length] = new Option('Lawn Tennis', 'Lawn Tennis');
+					subdisc.options[subdisc.options.length] = new Option('Table Tennis', 'Table Tennis');
+				} else if(disc == "Others") {
+					subdisc.options.length = 0;discrow.style = "display:;";
+					subdisc.value = '';subdiscrow.style = "display:none;";
+				} else {}
+			}
+		</script>
+		<style>
+			H1 {font-size:40px;text-align:center;}
+		</style>
+	</head>
+	<body>
+		<h1>Tutor Registration Form</h1><hr/>
+		<form id="frm" method="get" action="" onsubmit="return validateForm()">
+			<table>
+				<tr>
+					<td>Name: </td>
+					<td><input name="name" type="text" placeholder="Enter Name"></input></td>
+				</tr>
+				<tr>
+					<td>DOB: </td>
+					<td><input name="db" type="date" ></input></td>
+				</tr>
+				<tr>
+					<td>Gender: </td>
+					<td>
+						<input type="radio" name="gender" value="male" checked>Male</input>&nbsp;&nbsp;
+						&nbsp;&nbsp;<input type="radio" name="gender" value="female">Female</input>
+					</td>
+				</tr>
+				<tr>
+					<td>Email: </td>
+					<td><input name="email" type="email" placeholder="Enter Email"></input></td>
+				</tr>
+				<tr>
+					<td>Password: </td>
+					<td><input name="pass" type="password" placeholder="Enter Password"></input></td>
+				</tr>
+				<tr>
+					<td>Contact Number: </td>
+					<td><input name="contact" type="text" placeholder="Enter Contact Number"></input></td>
+				</tr>
+				<tr>
+					<td>Address: </td>
+					<td><textarea name="address" rows="5" placeholder="Enter Address"></textarea></td>
+				</tr>
+				<tr>
+					<td>Discipline: </td>
+					<td>
+						<select name="disc" onchange="rePopSubDisc()">
+							<option value="Academics">Academics</option>
+							<option value="Technical or Vocational">Technical or Vocational</option>
+							<option value="Art">Art</option>
+							<option value="Singing">Singing</option>
+							<option value="Instruments">Instruments</option>
+							<option value="Dance">Dance</option>
+							<option value="Sports">Sports</option>
+							<option value="Others">Others</option>
+						<select>
+					</td>
+				</tr>
+				<tr id="discrow" style="display:none;">
+					<td>Other please Specify: </td>
+					<td><input name="discipline" type="text" placeholder="Enter Discipline"></input></td>
+				</tr>
+				<tr id="subdiscrow" style="display:;">
+					<td>Sub-Discipline: </td>
+					<td>
+						<select name="subdiscipline">
+							<option value="English">English</option>
+							<option value="Bengali">Bengali</option>
+							<option value="Hindi">Hindi</option>
+							<option value="Computer">Computer</option>
+							<option value="Physics">Physics</option>
+							<option value="Chemistry">Chemistry</option>
+							<option value="Mathematics">Mathematics</option>
+							<option value="Biology">Biology</option>
+						<select>
+					</td>
+				</tr>
+				<tr>
+					<td>Experience: </td>
+					<td><input name="exp" type="number" min="0" max="40" step="5"></input></td>
+				</tr>
+				<tr>
+					<td>Remuneration: </td>
+					<td><input name="remuneration" type="number" min="0" max="10000" step="100"></input></td>
+				</tr>
+				<tr>
+					<td>Day Slots: </td>
+					<td>
+						<input type="radio" onclick="dsCheck()" name="dslot" value="any" checked>Any</input>&nbsp;&nbsp;
+						&nbsp;&nbsp;<input onclick="dsCheck()"type="radio" name="dslot" value="spec">Specific days</input>
+						<input type="hidden" name="DS" value="1111111"></input>
+					</td>
+				</tr>
+				<tr id="dayrow" style="display:none;">
+					<td> &nbsp; </td>
+					<td>
+						<select name="daybox" multiple>
+							<option value="1">Sunday</option>
+							<option value="1">Monday</option>
+							<option value="1">Tuesday</option>
+							<option value="1">Wednesday</option>
+							<option value="1">Thursday</option>
+							<option value="1">Friday</option>
+							<option value="1">Saturday</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Time Slots: </td>
+					<td>
+						<input type="radio" onclick="tsCheck()" name="tslot" value="any" checked>Any</input>&nbsp;&nbsp;
+						&nbsp;&nbsp;<input onclick="tsCheck()"type="radio" name="tslot" value="spec">Specific Time</input>
+						<input type="hidden" name="TS" value="00:00-23:30"></input>
+					</td>
+				</tr>
+				<tr id="timerow" style="display:none;">
+					<td> &nbsp; </td>
+					<td>
+						Start - <select name="tsr11"></select>&nbsp;&nbsp;
+						&nbsp;&nbsp;End - <select name="tsr12"></select><br/><br/>
+						Start - <select name="tsr21"></select>&nbsp;&nbsp;
+						&nbsp;&nbsp;End - <select name="tsr22"></select><br/><br/>
+						Start - <select name="tsr31"></select>&nbsp;&nbsp;
+						&nbsp;&nbsp;End - <select name="tsr32"></select><br/><br/>
+						Start - <select name="tsr41"></select>&nbsp;&nbsp;
+						&nbsp;&nbsp;End - <select name="tsr42"></select><br/><br/>
+						Start - <select name="tsr51"></select>&nbsp;&nbsp;
+						&nbsp;&nbsp;End - <select name="tsr52"></select><br/>
+					</td>
+				</tr>
+				<tr>
+					<td>Location: </td>
+					<td>
+						<input type="radio" onclick="locCheck()"name="loc" value="Any Location" checked>Any Location</input>&nbsp;&nbsp;
+						&nbsp;&nbsp;<input onclick="locCheck()"type="radio" name="loc" value="My Location">My Location</input>
+						<input type="hidden" name="location" value="Any Location"></input>
+					</td>
+				</tr>
+				<tr id="locrow" style="display:none;">
+					<td> &nbsp; </td>
+					<td>
+						<input name="locbox" type="text" placeholder="Enter Location"></input>
+					</td>
+				</tr>
+				<tr>
+					<td>Batch Strength: </td>
+					<td>
+						<select name="bs">
+							<option value="Single">Single</option>
+							<option value="Upto 5">Upto 5</option>
+							<option value="Upto 10">Upto 10</option>
+							<option value="Any">More than 10</option>
+						<select>
+					</td>
+				</tr>
+				<tr>
+					<td>Description: </td>
+					<td><textarea name="desc" rows="5" placeholder="Enter Address"></textarea></td>
+				</tr>
+				<tr>
+					<td><input type="reset" value="Reset"></input></td>
+					<td><input type="submit" value="Submit"></input></td>
+				</td>
+			</table>
+		</form>
+	</body>
+</html>

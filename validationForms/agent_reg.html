@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8"></meta>
+		<title>Agent Registration Form</title>
+		<script>
+			function validateForm() {
+				var form = document.getElementById("frm");
+				var agency_name = form.elements["agencyName"].value;
+				var contact_person = form.elements["contactPerson"].value;
+				var contact_number = form.elements["contactNumber"].value;
+				var email_reg = /^((\"\w+([\.-]?\w+)*\")|(\w+([\.-]?\w+)*))@\w+([\.-]?\w+)*(\.\w{2,3})*$/;
+				var email = form.elements["email"].value;
+				var pass = form.elements["pass"].value;
+				var address = form.elements["address"].value;
+				if(!agency_name.match(/^[a-zA-Z]+(\s?[a-zA-Z])*$/)) {
+					alert("Invalid Agency Name");
+					form.elements["agencyName"].focus();
+					return false;
+				} else if(!contact_person.match(/^[a-zA-Z]+(\s?[a-zA-Z])*$/)) {
+					alert("Invalid Contact Person Name");
+					form.elements["contactPerson"].focus();
+					return false;
+				} else if(!contact_number.match(/^[9,8,7]([0-9]{9})$/)) {
+					alert("Invalid Contact Number");
+					form.elements["contactNumber"].focus();
+					return false;
+				} else if(!email_reg.test(email)) {
+					alert("Invalid Email");
+					form.elements["email"].focus();
+					return false;
+				} else if(pass == '') {
+					alert("Invalid Password");
+					form.elements["pass"].focus();
+					return false;
+				} else if(address == '') {
+					alert("Address cannot be empty");
+					form.elements["address"].focus();
+					return false;
+				} else { 
+					return true;
+				}
+			}
+		</script>
+		<style>
+			H1 {font-size:40px;text-align:center;}
+		</style>
+	</head>
+	<body>
+		<h1>Agent Registration Form</h1><hr/>
+		<form id="frm" method="get" action="" onsubmit="return validateForm()">
+			<table>
+				<tr>
+					<td>Agency Name: </td>
+					<td><input name="agencyName" type="text" placeholder="Enter Agency Name"></input></td>
+				</tr>
+				<tr>
+					<td>Contact Person: </td>
+					<td><input name="contactPerson" type="text" placeholder="Contact Person Name"></input></td>
+				</tr>
+				<tr>
+					<td>Contact Number: </td>
+					<td><input name="contactNumber" type="text" placeholder="Enter Contact Number"></input></td>
+				</tr>
+				<tr>
+					<td>Email: </td>
+					<td><input name="email" type="email" placeholder="Enter Email"></input></td>
+				</tr>
+				<tr>
+					<td>Password: </td>
+					<td><input name="pass" type="password" placeholder="Enter Password"></input></td>
+				</tr>
+				
+				<tr>
+					<td>Address: </td>
+					<td><textarea name="address" rows="5" placeholder="Enter Address"></textarea></td>
+				</tr>
+				<tr>
+					<td><input type="reset" value="Reset"></input></td>
+					<td><input type="submit" value="Submit"></input></td>
+				</td>
+			</table>
+		</form>
+	</body>
+</html>

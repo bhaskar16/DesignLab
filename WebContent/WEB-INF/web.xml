@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" version="3.0">
+  <display-name>DesignLab-0.1</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+    <servlet-name>Registration</servlet-name>
+    <servlet-class>com.Cerebro.Controller.Registration</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>SearchServlet</servlet-name>
+    <servlet-class>com.Cerebro.Controller.SearchServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
+    <servlet-name>ManageTutors</servlet-name>
+    <servlet-class>com.Cerebro.Controller.ManageTutors</servlet-class>
+  </servlet>
+   
+   <servlet>
+    <servlet-name>ProfileHandler</servlet-name>
+    <servlet-class>com.Cerebro.Controller.ProfileHandler</servlet-class>
+  </servlet>
+  
+    <servlet>
+    <servlet-name>NegotiationHandler</servlet-name>
+    <servlet-class>com.Cerebro.Controller.NegotiationHandler</servlet-class>
+  </servlet>
+ 
+  <servlet-mapping>
+  <servlet-name>Registration</servlet-name>
+  <url-pattern>/Registration</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+  <servlet-name>ManageTutors</servlet-name>
+  <url-pattern>/ManageTutors</url-pattern>
+  </servlet-mapping>
+   
+   <servlet-mapping>
+  <servlet-name>SearchServlet</servlet-name>
+  <url-pattern>/SearchServlet</url-pattern>
+  </servlet-mapping>
+  
+    <servlet-mapping>
+  <servlet-name>ProfileHandler</servlet-name>
+  <url-pattern>/ProfileHandler</url-pattern>
+  </servlet-mapping>
+  
+      <servlet-mapping>
+  <servlet-name>NegotiationHandler</servlet-name>
+  <url-pattern>/NegotiationHandler</url-pattern>
+  </servlet-mapping>
+</web-app>

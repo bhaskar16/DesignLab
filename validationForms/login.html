@@ -1,0 +1,48 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8"></meta>
+		<title>LogIn Form</title>
+		<script>
+			function validateForm() {
+				var form = document.getElementById("frm");
+				var email_reg = /^((\"\w+([\.-]?\w+)*\")|(\w+([\.-]?\w+)*))@\w+([\.-]?\w+)*(\.\w{2,3})*$/;
+				var email = form.elements["email"].value;
+				var pass = form.elements["pass"].value;
+				if(!email_reg.test(email)) {
+					alert("Invalid Email");
+					form.elements["email"].focus();
+					return false;
+				} else if(pass == '') {
+					alert("Invalid Password");
+					form.elements["pass"].focus();
+					return false;
+				} else { 
+					return true;
+				}
+			}
+		</script>
+		<style>
+			H1 {font-size:40px;text-align:center;}
+		</style>
+	</head>
+	<body>
+		<h1>Login Form</h1><hr/>
+		<form id="frm" method="get" action="" onsubmit="return validateForm()">
+			<table>
+				<tr>
+					<td>Email: </td>
+					<td><input name="email" type="email" placeholder="Enter Email"></input></td>
+				</tr>
+				<tr>
+					<td>Password: </td>
+					<td><input name="pass" type="password" placeholder="Enter Password"></input></td>
+				</tr>
+				<tr>
+					<td><input type="reset" value="Reset"></input></td>
+					<td><input type="submit" value="Submit"></input></td>
+				</td>
+			</table>
+		</form>
+	</body>
+</html>
